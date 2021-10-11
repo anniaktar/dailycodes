@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/pages/homepage.dart';
+import 'package:flutter_application/pages/loginpage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Material(
-            color: Colors.blueGrey,
-            child: Center(
-                child: Container(
-                    child: Text("Anni Aktar Eva",
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                          backgroundColor: Colors.green,
-                        ))))));
+      themeMode: ThemeMode.light,
+      theme: ThemeData(primarySwatch: Colors.amber),
+      darkTheme: ThemeData(brightness: Brightness.dark),
+      initialRoute: "/login",
+      routes: {
+        "/": (context) => LoginPage(),
+        "/home": (context) => HomePage(),
+        "/login": (context) => LoginPage(),
+      },
+    );
   }
 }
