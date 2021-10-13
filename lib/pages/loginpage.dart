@@ -11,16 +11,49 @@ class LoginPage extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            Image.asset("assets/images/login-image.png.png"),
+            SizedBox(
+                width: 400,
+                height: 200,
+                child: Image.asset(
+                  "assets/images/login page2image-png.png",
+                  fit: BoxFit.fill,
+                )),
             Text(
-              "Wellcome",
+              "facebook login",
               style: TextStyle(
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
-                color: Colors.red,
-                backgroundColor: Colors.yellow,
+                color: Colors.blue,
               ),
+            ),
+            const SizedBox(
+              height: 100,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                        hintText: " Enter Your User ID", labelText: "User ID"),
+                  ),
+                  TextFormField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        hintText: " Enter Your Forget Password",
+                        labelText: "Pssaward"),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
+            ),
+            const Text(
+              "Forget Passward?",
+              style: TextStyle(fontSize: 20, color: Colors.blue),
             )
           ],
         ));
