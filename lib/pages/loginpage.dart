@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application/pages/routes.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -51,10 +52,23 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 30,
+            ),
+            ElevatedButton(
+                onLongPress: () {
+                  Navigator.pushNamed(context, MyRoutes.homeRoute);
+                },
+                child: Text("Login"),
+                onPressed: null,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  minimumSize: const Size(100, 40),
+                )),
             const Text(
               "Forget Passward?",
               style: TextStyle(fontSize: 20, color: Colors.blue),
-            )
+            ),
           ],
         ));
   }
