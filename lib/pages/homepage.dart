@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,7 +10,7 @@ class HomePage extends StatelessWidget {
         shadowColor: Colors.red,
         elevation: 2.0,
         centerTitle: true,
-        title: Text("Tomato Apps"),
+        title: const Text("Tomato Apps"),
       ),
       drawer: const Drawer(),
       body: Center(
