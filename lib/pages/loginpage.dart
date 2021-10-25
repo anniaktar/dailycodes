@@ -1,75 +1,149 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application/pages/routes.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String name = "";
+  bool changeButton = false;
+
+  final _formkey = GlobalKey<FormState>();
+
+  moveToHome(BuildContext context) async {
+    if (_formkey.currentState!.validate()) {
+      setState(() {
+        changeButton = true;
+      });
+      await Future.delayed(Duration(seconds: 1));
+      await Navigator.pushNamed(context, MyRoutes.homeRoute);
+      setState(() {
+        changeButton = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return Scaffold(
+      appBar: AppBar(
+        shadowColor: Colors.yellow,
+        elevation: 2.0,
+        centerTitle: true,
+        title: Text("Anni Aktar Eva"),
+      ),
+      body: Material(
         color: Colors.white,
-        child: Column(
-          children: [
-            SizedBox(
-                width: 400,
-                height: 200,
-                child: Image.asset(
-                  "assets/images/login page2image-png.png",
-                  fit: BoxFit.fill,
-                )),
-            Text(
-              "facebook login",
-              style: TextStyle(
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-                color: Colors.blue,
-              ),
-            ),
-            const SizedBox(
-              height: 100,
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                        hintText: " Enter Your User ID", labelText: "User ID"),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formkey,
+            child: Column(
+              children: [
+                SizedBox(
+                    width: 400,
+                    height: 300,
+                    child: Image.asset(
+                      "assets/images/login-page.png",
+                      fit: BoxFit.fitHeight,
+                    )),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Welcome $name",
+                  style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 32.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: "Enter Your User ID",
+                            labelText: "User ID",
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "User name is empty";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            name = value;
+                            setState(() {});
+                          }),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: "Enter Your Password",
+                          labelText: "Password",
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "User name is empty";
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
                   ),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        hintText: " Enter Your Forget Password",
-                        labelText: "Pssaward"),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Material(
+                  color: Colors.deepPurple,
+                  borderRadius: BorderRadius.circular(changeButton ? 50 : 8),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(changeButton ? 50 : 8),
+                    splashColor: Colors.red,
+                    onTap: () => moveToHome(context),
+                    child: AnimatedContainer(
+                      duration: Duration(seconds: 1),
+                      width: changeButton ? 50 : 120,
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: changeButton
+                          ? Icon(
+                              Icons.done,
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Login",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                    ),
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                ],
-              ),
+                ),
+
+                // ElevatedButton(
+                //     onPressed: () {
+                //       Navigator.pushNamed(context, MyRoutes.homeRoute);
+                //     },
+                //     child: const Text("Login"),
+                //     style: TextButton.styleFrom(
+                //         minimumSize: const Size(100, 40),
+                //         backgroundColor: Colors.blue)),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text("Forgot Password?"),
+              ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            ElevatedButton(
-                onLongPress: () {
-                  Navigator.pushNamed(context, MyRoutes.homeRoute);
-                },
-                child: Text("Login"),
-                onPressed: null,
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  minimumSize: const Size(100, 40),
-                )),
-            const Text(
-              "Forget Passward?",
-              style: TextStyle(fontSize: 20, color: Colors.blue),
-            ),
-          ],
-        ));
+          ),
+        ),
+      ),
+    );
   }
 }
